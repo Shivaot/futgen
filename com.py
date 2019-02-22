@@ -1,4 +1,7 @@
 import boto3
+from flask import Flask,render_template
+import webbrowser as wb
+
 
 if __name__ == "__main__":
 
@@ -16,10 +19,23 @@ if __name__ == "__main__":
     for faceMatch in response['FaceMatches']:
         position = faceMatch['Face']['BoundingBox']
         similarity = str(faceMatch['Similarity'])
-        print('The faces at ' +
+    """ print('The faces at ' +
                str(position['Left']) + ' and ' +
                str(position['Top']) +
-               ' matches with ' + similarity + '% confidence')
+               ' matches with ' + similarity + '% confidence')"""
 
     imageSource.close()
-    imageTarget.close()               
+    imageTarget.close()  
+
+
+app = Flask(__name__)
+
+@app.route('/')
+def homepage():
+    return render_template('index.html', name = similarity)
+
+url = 'http://127.0.0.1:5000'
+wb.open_new_tab(url) 
+app.run(debug=True)   
+         
+   
